@@ -13,7 +13,7 @@ API para a gestão de uma livraria virtual.
 ##Premissas
 
 - PATCH não será utilizado
-- URL Base = https://<host>:<port>/api/v1
+- URL Base = https://{host}:{port}/api/v1
 
 ##Endpoints
 
