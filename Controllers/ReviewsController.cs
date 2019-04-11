@@ -46,14 +46,14 @@ namespace VBSApi.Controllers
             _context.ReviewItems.Add(review);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetReviewItem), new { iD = review.ID }, review);
+            return CreatedAtAction(nameof(GetReviewItem), new { ReviewIid = review.ReviewId }, review);
         }
 
         // PUT: api/v1/reviews/{id}
         [HttpPut("{id}")]
         public async Task<ActionResult<ReviewItem>> PutReviewItem(long id, ReviewItem review)
         {
-            if (id != review.ID)
+            if (id != review.ReviewId)
             {
                 return BadRequest();
             }

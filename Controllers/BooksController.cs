@@ -25,14 +25,12 @@ namespace VBSApi.Controllers
                 _context.SaveChanges();
             }
         }
-        // GET: api/books
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookItem>>> GetBookItems()
         {
             return await _context.BookItems.ToListAsync();
         }
 
-        // GET: api/books/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<BookItem>> GetBookItem(long id)
         {
@@ -53,14 +51,14 @@ namespace VBSApi.Controllers
             _context.BookItems.Add(book);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetBookItem), new { id = book.ID }, book);
+            return CreatedAtAction(nameof(GetBookItem), new { id = book.BookId }, book);
         }
 
         // PUT: api/books/{id}
         [HttpPut("{id}")]
         public async Task<ActionResult<BookItem>> PutBookItem(long id, BookItem book)
         {
-            if (id != book.ID)
+            if (id != book.BookId)
             {
                 return BadRequest();
             }

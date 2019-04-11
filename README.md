@@ -72,4 +72,4 @@ _Método: DELETE_
 Importar a Postman Collection postman_collection.json e variáveis de ambiente postman_environment.json.
 
 ## Documentação  
-https://localhost:5001/swagger/v1/swagger.json
+https://localhost:5001/swagger
