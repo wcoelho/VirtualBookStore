@@ -1,7 +1,7 @@
 # VirtualBookStoreApi
 API para a gestão de uma livraria virtual.  
 
-##Operações
+## Operações
 
 * Postar comentários para livros (resenhas).  
 * Pesquisa de livros por critérios diversos.  
@@ -10,12 +10,12 @@ API para a gestão de uma livraria virtual.
 * Acompanhamento o status das entregas realizadas.  
 * Cadastrar livros.  
 
-##Premissas
+## Premissas
 
 - PATCH não será utilizado
-- URL Base = https://{host}:{port}/api/v1
+- URL Base = https://localhost:5001/api/v1
 
-##Endpoints
+## Endpoints
 
 **Consultas**  
 _Método: GET_  
@@ -41,7 +41,7 @@ _Método: GET_
 * /deliveries = Recupera todas as entregas registradas.
 * /deliveries/{deliveryId} = Recupera uma entrega específica.
 
-**Cadastros**
+**Cadastros**  
 _Método: POST_  
 
 * /books  = Cadastra um livro.
@@ -50,7 +50,7 @@ _Método: POST_
 * /orders = Cria um pedido de compra.
 * /deliveries = Cria um controle de entrega de pedido.
 
-**Atualizações**
+**Atualizações**  
 _Método: PUT_
 
 * /books/{bookId} = Atualiza dados de um livro.
@@ -59,7 +59,7 @@ _Método: PUT_
 * /orders/{orderId} = Atualiza dados de um pedido de compra.
 * /deliveries/{deliveryId} = Atualiza um controle de entrega de pedido.
 
-**Remoções**
+**Remoções**  
 _Método: DELETE_
 
 * /books/{bookId} = Apaga registro de um livro.
@@ -68,5 +68,8 @@ _Método: DELETE_
 * /orders/{orderId} = Apaga registro de um pedido de compra.
 * /deliveries/{deliveryId} = Apaga registro de controle de entrega de pedido.  
 
-#Testes  
+## Testes  
 Importar a Postman Collection postman_collection.json e variáveis de ambiente postman_environment.json.
+
+## Documentação  
+https://localhost:5001/swagger/v1/swagger.json
