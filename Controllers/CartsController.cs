@@ -36,6 +36,8 @@ namespace VBSApi.Controllers
                 return NotFound();
             }
 
+            CartItem.BookItems = await ExtractBooks(CartItem);
+
             return CartItem;
         }
 
@@ -43,10 +45,28 @@ namespace VBSApi.Controllers
         [HttpPost]
         public async Task<ActionResult<CartItem>> PostCartItem(CartItem cart)
         {
+            if (cart == null)
+            {
+                throw new System.ArgumentNullException(nameof(cart));
+
+            }
+            else if (cart.BookItems == null)
+            {
+                throw new System.ArgumentNullException(nameof(cart.BookItems));
+            }
+
+            // Retrieving all books from cart
+            
+            ICollection<BookItem> books = await ExtractBooks(cart);
+            cart.BookItems = books;
+
+            // Setting the initial status
+            cart.Status = "open";
+
             _context.CartItems.Add(cart);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCartItem), new { CastId = cart.CartId }, cart);
+            return CreatedAtAction(nameof(GetCartItem), new { id = cart.CartId }, cart);
         }
 
         // PUT: api/v1/carts/{id}
@@ -79,6 +99,24 @@ namespace VBSApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+        
+        private async Task<List<BookItem>> ExtractBooks(CartItem cart)
+        {
+            var books = new List<BookItem>();
+
+            foreach (var book in cart.BookItems)
+            {
+                var bookItem = await _context.BookItems.FindAsync(book.BookId);
+                if (bookItem == null)
+                {
+                    continue;
+                }
+
+                books.Add(bookItem);
+            }
+
+            return books;
         }
     }  
 

@@ -7,6 +7,7 @@ namespace VBSApi.Models
         public VBSContext(DbContextOptions<VBSContext> options)
             : base(options)
         {
+            
         }
 
         public DbSet<BookItem> BookItems { get; set; }

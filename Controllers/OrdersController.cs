@@ -46,7 +46,7 @@ namespace VBSApi.Controllers
             _context.OrderItems.Add(order);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetOrderItem), new { OrderId = order.OrderId }, order);
+            return CreatedAtAction(nameof(GetOrderItem), new { id = order.OrderId }, order);
         }
 
         // PUT: api/v1/orders/{id}

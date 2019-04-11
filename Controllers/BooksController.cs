@@ -19,10 +19,8 @@ namespace VBSApi.Controllers
 
             if (_context.BookItems.Count() == 0)
             {
-                // Create a new BookItem if collection is empty,
-                // which means you can't delete all BookItems.
-                _context.BookItems.Add(new BookItem { Title = "First title", Isbn = "First ISBN", Synopsis = "First Synopsis", Genre = "Drama", Value = 23.45 });
-                _context.SaveChanges();
+                // Populates a initial list of books
+                PopulateBooks.AddBooks(_context);
             }
         }
         [HttpGet]

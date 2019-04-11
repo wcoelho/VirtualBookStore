@@ -43,10 +43,23 @@ namespace VBSApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ReviewItem>> PostReviewItem(ReviewItem review)
         {
+            if (review == null)
+            {
+                throw new System.ArgumentNullException(nameof(review));
+            }
+
+            var bookItem = await _context.BookItems.FindAsync(review.BookItem.BookId);
+            review.BookItem = bookItem;
+
+            if (bookItem == null)
+            {
+                return NotFound();
+            }
+
             _context.ReviewItems.Add(review);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetReviewItem), new { ReviewIid = review.ReviewId }, review);
+            return CreatedAtAction(nameof(GetReviewItem), new { id = review.ReviewId }, review);
         }
 
         // PUT: api/v1/reviews/{id}

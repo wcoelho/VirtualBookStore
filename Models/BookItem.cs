@@ -3,6 +3,7 @@ namespace VBSApi.Models
 {
     public class BookItem
     {
+        [Key]
         public long  BookId { get; set; }
         public string Isbn { get; set; }
         public string Title { get; set; }

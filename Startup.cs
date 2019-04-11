@@ -12,6 +12,8 @@ namespace VirtualBookStoreApi
 {
     public class Startup
     {
+        public string baseUrl = "/api/v1";
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
