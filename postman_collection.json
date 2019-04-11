@@ -1,0 +1,551 @@
+{
+	"info": {
+		"_postman_id": "2f4762bc-6ed3-4f36-83c2-35c3534b20a3",
+		"name": "VirtualBookStoreApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Pre_processamentos",
+			"item": [
+				{
+					"name": "Limpar valores e criar variávies iniciais",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9ddce08-415b-4546-b48b-e396209430e6",
+								"exec": [
+									"pm.globals.clear()",
+									"pm.globals.set(\"titleUpdated1\", \"This is my first updated title\");",
+									"pm.globals.set(\"titleUpdated2\", \"This is my second updated title\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "HEAD",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"books"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Livros",
+			"item": [
+				{
+					"name": "Recuperar todos livros",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar livro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29ea9cf0-c51d-4264-aa96-65f555cc3eed",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var bookId = jsonData.id;",
+									"pm.globals.set(\"bookId\", bookId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"My second book\",\r\n  \"synopsis\": \"This is the register of my second book\",\r\n  \"isbn\": \"12345678\",\r\n  \"genre\": \"Horror\",\r\n  \"value\": 43.36\r\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar livro específico",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books/{{bookId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"books",
+								"{{bookId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar livro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var title = jsonData.title;",
+									"var expected = pm.globals.get(\"titleUpdated1\");",
+									"",
+									"pm.expect(title).to.equal(expected);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": {{bookId}},\r\n  \"title\": \"{{titleUpdated1}}\",\r\n  \"synopsis\": \"This is the register of my second book\",\r\n  \"isbn\": \"12348\",\r\n  \"genre\": \"Action\",\r\n  \"value\": 63.36\r\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books/{{bookId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"books",
+								"{{bookId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar livro #1",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books/1",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"books",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar livro #2",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books/{{bookId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"books",
+								"{{bookId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Resenhas",
+			"item": [
+				{
+					"name": "Recuperar todas resenhas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/reviews",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar resenha",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29ea9cf0-c51d-4264-aa96-65f555cc3eed",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var reviewId = jsonData.id;",
+									"pm.globals.set(\"reviewId\", reviewId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bookId\": {{bookId}},\r\n  \"review\": \"This is the review\"\r\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/reviews",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar resenha específica",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29ea9cf0-c51d-4264-aa96-65f555cc3eed",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"My second book\",\r\n  \"synopsis\": \"This is the register of my second book\",\r\n  \"isbn\": \"12345678\",\r\n  \"genre\": \"Horror\",\r\n  \"value\": 43.36\r\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/reviews/{{reviewId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"{{reviewId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar resenha",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var title = jsonData.title;",
+									"var expected = pm.globals.get(\"titleUpdated1\");",
+									"",
+									"pm.expect(title).to.equal(expected);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2,\n    \"bookID\": 1,\n    \"review\": \"Test\"\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/reviews/{{reviewId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"{{reviewId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar resenha #1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var title = jsonData.title;",
+									"var expected = pm.globals.get(\"titleUpdated1\");",
+									"",
+									"pm.expect(title).to.equal(expected);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": {{bookId}},\r\n  \"title\": \"{{titleUpdated1}}\",\r\n  \"synopsis\": \"This is the register of my second book\",\r\n  \"isbn\": \"12348\",\r\n  \"genre\": \"Action\",\r\n  \"value\": 63.36\r\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/reviews/{{reviewId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"reviews",
+								"{{reviewId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar resenha #2",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/books/{{bookId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"books",
+								"{{bookId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

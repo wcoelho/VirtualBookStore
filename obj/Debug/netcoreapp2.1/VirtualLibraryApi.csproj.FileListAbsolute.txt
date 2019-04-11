@@ -1,0 +1,14 @@
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.csprojAssemblyReference.cache
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.csproj.CoreCompileInputs.cache
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.RazorAssemblyInfo.cache
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.RazorAssemblyInfo.cs
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.AssemblyInfoInputs.cache
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.AssemblyInfo.cs
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\bin\Debug\netcoreapp2.1\VirtualBookStoreApi.deps.json
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\bin\Debug\netcoreapp2.1\VirtualBookStoreApi.runtimeconfig.json
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\bin\Debug\netcoreapp2.1\VirtualBookStoreApi.runtimeconfig.dev.json
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\bin\Debug\netcoreapp2.1\VirtualBookStoreApi.dll
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\bin\Debug\netcoreapp2.1\VirtualBookStoreApi.pdb
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.RazorTargetAssemblyInfo.cache
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.dll
+C:\Users\pplprof\Desktop\Aula2\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.pdb

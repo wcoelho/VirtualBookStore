@@ -1,0 +1,14 @@
+E:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\bin\Debug\netcoreapp2.1\VirtualBookStoreApi.deps.json
+E:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\bin\Debug\netcoreapp2.1\VirtualBookStoreApi.runtimeconfig.json
+E:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\bin\Debug\netcoreapp2.1\VirtualBookStoreApi.runtimeconfig.dev.json
+e:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\bin\Debug\netcoreapp2.1\VirtualBookStoreApi.dll
+e:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\bin\Debug\netcoreapp2.1\VirtualBookStoreApi.pdb
+e:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.csprojAssemblyReference.cache
+e:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.csproj.CoreCompileInputs.cache
+e:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.RazorAssemblyInfo.cache
+e:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.RazorAssemblyInfo.cs
+e:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.AssemblyInfoInputs.cache
+e:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.AssemblyInfo.cs
+e:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.RazorTargetAssemblyInfo.cache
+e:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.dll
+e:\Library\Desktop\PosPuc\Projetos\VirtualBookStoreApi\obj\Debug\netcoreapp2.1\VirtualBookStoreApi.pdb
