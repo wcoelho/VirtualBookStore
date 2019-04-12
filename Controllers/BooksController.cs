@@ -42,6 +42,45 @@ namespace VBSApi.Controllers
 
             return BookItem;
         }
+        
+        [HttpGet("{id}/reviews")]
+        public async Task<ActionResult<List<ReviewItem>>> GetReviewsForBookItem(long id)
+        {
+            var BookItem = await _context.BookItems.FindAsync(id);
+
+            var Reviews = new List<ReviewItem>();
+
+            foreach(var review in _context.ReviewItems)
+            {
+                if(review.BookItem.BookId==BookItem.BookId)
+                {
+                    Reviews.Add(review);
+                }
+            }
+
+            return Reviews;
+        }
+
+        [HttpGet("{id}/carts")]
+        public async Task<ActionResult<List<CartItem>>> GetCartsForBookItem(long id)
+        {
+            var BookItem = await _context.BookItems.FindAsync(id);
+
+            var Carts = new List<CartItem>();
+
+            foreach(var cart in _context.CartItems)
+            {
+                foreach(var book in cart.BookItems)
+                {
+                    if(book.BookId==BookItem.BookId)
+                    {
+                        Carts.Add(cart);
+                    }
+                }
+            }
+
+            return Carts;
+        }
 
         // POST: api/books
         [HttpPost]

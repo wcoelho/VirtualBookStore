@@ -24,16 +24,12 @@ _Método: GET_
 * /books/{bookId} = Recupera as informações de um livro específico.  
 * /books/{bookId}/reviews = Recupera todas as resenhas relativas a um livro específico.  
 * /books/{bookId}/carts = Recupera todos carrinhos de compra que possuem um livro específico.  
-* /books/{bookId}/orders = Recupera todas os pedidos relativos a um livro específico.  
-* /books/{bookId}/deliveries = Recupera todas as entregas relativas a um livro específico. 
-
 
 * /reviews = Recupera todas as resenhas cadastradas.  
 * /reviews/{reviewId} = Recupera uma resenha específica.  
 
 * /carts = Recupera todos carrinhos de compra.  
 * /carts/{cartId} = Recupera carrinho de compra específico.  
-* /carts/{cartId}/orders = Recupera pedidos efetuados para carrinho de compra específico.  
 
 * /orders = Recupera todos os pedidos cadastrados.  
 * /orders/{orderId} = Recupera um pedido específico.  
@@ -72,4 +68,5 @@ _Método: DELETE_
 Importar a Postman Collection postman_collection.json e variáveis de ambiente postman_environment.json.
 
 ## Documentação  
+Estando a aplicação em execução, acesse a seguinte URI:  
 https://localhost:5001/swagger
