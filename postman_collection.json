@@ -344,7 +344,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"bookId\": {{bookId}},\r\n  \"review\": \"This is the review\"\r\n}"
+							"raw": "{\r\n  \"review\": \"My first review\",\r\n  \r\n  \"bookItems\": [\r\n    {\r\n      \"bookId\": 1\r\n    }\r\n  ]\r\n}"
 						},
 						"url": {
 							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/reviews",
@@ -509,14 +509,55 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carrinho",
+			"item": [
+				{
+					"name": "Recuperar todos carrinhos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/carts",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"carts"
+							]
+						}
+					},
+					"response": []
 				},
 				{
-					"name": "Apagar resenha #2",
+					"name": "Criar carrinho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29ea9cf0-c51d-4264-aa96-65f555cc3eed",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var cartId = jsonData.cartId;",
+									"pm.globals.set(\"cartId\", cartId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "DELETE",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -527,10 +568,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "{\r\n  \"bookItems\": [\r\n    {\r\n      \"bookId\": 1\r\n    },\r\n    {\r\n      \"bookId\": 2\r\n    }\r\n  ]\r\n}"
 						},
 						"url": {
-							"raw": "https://{{ADDRESS}}:{{PORT}}/api/books/{{bookId}}",
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/carts",
 							"protocol": "https",
 							"host": [
 								"{{ADDRESS}}"
@@ -538,8 +579,159 @@
 							"port": "{{PORT}}",
 							"path": [
 								"api",
-								"books",
-								"{{bookId}}"
+								"v1",
+								"carts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar carrinho específico",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29ea9cf0-c51d-4264-aa96-65f555cc3eed",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/carts/{{cartId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar carrinho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var title = jsonData.title;",
+									"var expected = pm.globals.get(\"titleUpdated1\");",
+									"",
+									"pm.expect(title).to.equal(expected);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2,\n    \"bookID\": 1,\n    \"review\": \"Test\"\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/reviews/{{reviewId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"{{reviewId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar carrinho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var title = jsonData.title;",
+									"var expected = pm.globals.get(\"titleUpdated1\");",
+									"",
+									"pm.expect(title).to.equal(expected);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\": {{bookId}},\r\n  \"title\": \"{{titleUpdated1}}\",\r\n  \"synopsis\": \"This is the register of my second book\",\r\n  \"isbn\": \"12348\",\r\n  \"genre\": \"Action\",\r\n  \"value\": 63.36\r\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/reviews/{{reviewId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"reviews",
+								"{{reviewId}}"
 							]
 						}
 					},
