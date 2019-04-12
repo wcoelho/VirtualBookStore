@@ -10,18 +10,24 @@ API para a gestão de uma livraria virtual.
 * Acompanhamento o status das entregas realizadas.  
 * Cadastrar livros.  
 
-## Premissas
+## Premissas/Implementações
 
-- URL Base = https://localhost:5001/api/v1
-- URIs baseadas em substantivos e no plural: books, reviews, carts, orders, deliveries.
-- URIs objetivas e simples, sem expor detalhes fisicos de implementação.
-- Utilização do PUT para atualização de dados. PATCH não será utilizado.
-- Data e hora devem usar o padrão ISO 8601.
-- Documentação em Swagger.
-- Protocolo HTTPS/SSL.
-- APIs versionadas.
-- Paginação para coleções com grandes volumes de dados.
-- Códigos de retorno adequados para cada método.
+* URIs baseadas em substantivos e no plural.  
+=> books, reviews, carts, orders, deliveries.  
+* URIs objetivas e simples, sem expor detalhes fisicos de implementação.  
+=> Veja tópico "Endpoints"
+* Utilização do PUT para atualização de dados.  
+=> PATCH não foi utilizado.  
+* Data e hora devem usar o padrão ISO 8601.  
+=> Não utilizamos campos de data/hora
+* Documentação em Swagger.  
+=> Veja tópico "Documentação"
+* Protocolo HTTPS/SSL e APIs versionadas.  
+=> URL Base = https://localhost:5001/api/v1
+* Paginação para coleções com grandes volumes de dados.  
+=> Adicionados campos para controle de paginação para a entidade "book"
+* Códigos de retorno adequados para cada método.  
+=> Pode ser verificado durante a execução do Postman
 
 ## Endpoints
 
