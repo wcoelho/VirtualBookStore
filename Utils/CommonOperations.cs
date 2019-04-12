@@ -20,17 +20,23 @@ namespace VBSApi.Utils
             var value = 20;
 
             var books = new List<BookItem>();
+            var pagination = new PaginationItem();
+            pagination.Limit = 40;
+            pagination.Offset = 20;
+            pagination.Total = 1000;
 
             for(int i=0; i<10; i++)
             {
                 // Select the genre according to current index
                 var index = (i % 2)==0? 0 : 1;
+
                 BookItem book = new BookItem() { 
                     Isbn = isbn+i,
                     Title = title+i,                    
                     Genre = genres[index],
                     Synopsis = synopsis+i,
-                    Value = (long) value/(i+1)
+                    Value = (long) value/(i+1),
+                    Pagination = pagination                    
                 };
 
                 books.Add(book);

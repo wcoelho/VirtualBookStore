@@ -10,6 +10,7 @@ namespace VBSApi.Models
         public string Genre { get; set; }
         public string Synopsis { get; set; }
         public double Value { get; set; }
+        public PaginationItem Pagination { get; set; }
 
     }
 }

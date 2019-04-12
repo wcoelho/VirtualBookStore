@@ -12,8 +12,16 @@ API para a gestão de uma livraria virtual.
 
 ## Premissas
 
-- PATCH não será utilizado
 - URL Base = https://localhost:5001/api/v1
+- URIs baseadas em substantivos e no plural: books, reviews, carts, orders, deliveries.
+- URIs objetivas e simples, sem expor detalhes fisicos de implementação.
+- Utilização do PUT para atualização de dados. PATCH não será utilizado.
+- Data e hora devem usar o padrão ISO 8601.
+- Documentação em Swagger.
+- Protocolo HTTPS/SSL.
+- APIs versionadas.
+- Paginação para coleções com grandes volumes de dados.
+- Códigos de retorno adequados para cada método.
 
 ## Endpoints
 
@@ -70,3 +78,4 @@ Importar a Postman Collection postman_collection.json e variáveis de ambiente p
 ## Documentação  
 Estando a aplicação em execução, acesse a seguinte URI:  
 https://localhost:5001/swagger
+

@@ -21,7 +21,7 @@ namespace VBSApi.Controllers
             if (_context.BookItems.Count() == 0)
             {
                 // Populates a initial list of books
-                CommonOperations.AddBooks(_context);
+                CommonOperations.AddBooks(_context);                
             }
         }
         [HttpGet]
@@ -39,6 +39,8 @@ namespace VBSApi.Controllers
             {
                 return NotFound();
             }
+
+            var CounterRegisters = _context.BookItems.Count();            
 
             return BookItem;
         }
@@ -128,7 +130,7 @@ namespace VBSApi.Controllers
 
             return NoContent();
         }
-    }  
 
+    }  
 
 }

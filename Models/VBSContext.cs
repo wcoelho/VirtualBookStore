@@ -15,5 +15,7 @@ namespace VBSApi.Models
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<DeliveryItem> DeliveryItems { get; set; }
+        public DbSet<PaginationItem> PaginationItems { get; set; }
+
     }
 }
