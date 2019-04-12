@@ -29,6 +29,10 @@ API para a gestão de uma livraria virtual.
 * Códigos de retorno adequados para cada método.  
 => Pode ser verificado durante a execução do Postman
 
+## Arquitetura
+
+![Arquitetura](Docs/arquitetura.jpg?raw=true "Arquitetura")
+
 ## Endpoints
 
 **Consultas**  
