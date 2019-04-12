@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VBSApi.Models;
+using VBSApi.Utils;
 
 namespace VBSApi.Controllers
 {
@@ -20,7 +21,7 @@ namespace VBSApi.Controllers
             if (_context.BookItems.Count() == 0)
             {
                 // Populates a initial list of books
-                PopulateBooks.AddBooks(_context);
+                CommonOperations.AddBooks(_context);
             }
         }
         [HttpGet]
@@ -46,6 +47,11 @@ namespace VBSApi.Controllers
         [HttpPost]
         public async Task<ActionResult<BookItem>> PostBookItem(BookItem book)
         {
+            if (book == null)
+            {
+                throw new System.ArgumentNullException(nameof(book));
+            }
+
             _context.BookItems.Add(book);
             await _context.SaveChangesAsync();
 

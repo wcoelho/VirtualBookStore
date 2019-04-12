@@ -48,13 +48,14 @@ namespace VBSApi.Controllers
                 throw new System.ArgumentNullException(nameof(review));
             }
 
-            var bookItem = await _context.BookItems.FindAsync(review.BookItem.BookId);
-            review.BookItem = bookItem;
+            var bookItem = await _context.BookItems.FindAsync(review.BookItem.BookId);            
 
             if (bookItem == null)
             {
                 return NotFound();
             }
+
+            review.BookItem = bookItem;
 
             _context.ReviewItems.Add(review);
             await _context.SaveChangesAsync();

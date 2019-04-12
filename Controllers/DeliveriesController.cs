@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VBSApi.Models;
+using VBSApi.Utils;
 
 namespace VBSApi.Controllers
 {
@@ -43,6 +44,21 @@ namespace VBSApi.Controllers
         [HttpPost]
         public async Task<ActionResult<DeliveryItem>> PostDeliveryItem(DeliveryItem delivery)
         {
+            if (delivery == null)
+            {
+                throw new System.ArgumentNullException(nameof(delivery));
+            }
+            else if (delivery.OrderItems == null)
+            {
+                throw new System.ArgumentNullException(nameof(delivery.OrderItems));
+            }
+
+            // Retrieving all orders from delivery            
+            ICollection<OrderItem> orders = await CommonOperations.ExtractOrders(delivery, _context);
+            delivery.OrderItems = orders;
+
+            delivery.Status = "created";
+
             _context.DeliveryItems.Add(delivery);
             await _context.SaveChangesAsync();
 

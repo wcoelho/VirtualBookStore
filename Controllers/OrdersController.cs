@@ -43,6 +43,21 @@ namespace VBSApi.Controllers
         [HttpPost]
         public async Task<ActionResult<OrderItem>> PostOrderItem(OrderItem order)
         {
+            if (order == null)
+            {
+                throw new System.ArgumentNullException(nameof(order));
+            }
+            
+            var cartItem = await _context.CartItems.FindAsync(order.CartItem.CartId);
+
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
+
+            order.CartItem = cartItem;
+            order.Status = "inprogress";
+
             _context.OrderItems.Add(order);
             await _context.SaveChangesAsync();
 

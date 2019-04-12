@@ -5,12 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using VBSApi.Models;
 
-namespace VBSApi.Controllers
+namespace VBSApi.Utils
 {
-    /*Populates book items*/
-    public class PopulateBooks
+    public class CommonOperations
     {
 
+        /*Populates book items*/
         public static void AddBooks(VBSContext context)
         {
             var isbn = "123456";
@@ -42,6 +42,44 @@ namespace VBSApi.Controllers
             }
 
             context.SaveChanges();
+        }
+        
+        /*Extracts book items from cart*/
+        public async static Task<List<BookItem>> ExtractBooks(CartItem cart, VBSContext context)
+        {
+            var books = new List<BookItem>();
+
+            foreach (var book in cart.BookItems)
+            {
+                var bookItem = await context.BookItems.FindAsync(book.BookId);
+                if (bookItem == null)
+                {
+                    continue;
+                }
+
+                books.Add(bookItem);
+            }
+
+            return books;
+        }
+        
+        /*Extracts order items from delivery*/
+        public async static Task<List<OrderItem>> ExtractOrders(DeliveryItem delivery, VBSContext context)
+        {
+            var orders = new List<OrderItem>();
+
+            foreach (var order in delivery.OrderItems)
+            {
+                var orderItem = await context.OrderItems.FindAsync(order.OrderId);
+                if (orderItem == null)
+                {
+                    continue;
+                }
+
+                orders.Add(orderItem);
+            }
+
+            return orders;
         }
     }
 }

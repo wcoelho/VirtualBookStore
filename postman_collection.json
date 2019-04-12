@@ -17,8 +17,10 @@
 								"id": "a9ddce08-415b-4546-b48b-e396209430e6",
 								"exec": [
 									"pm.globals.clear()",
-									"pm.globals.set(\"titleUpdated1\", \"This is my first updated title\");",
-									"pm.globals.set(\"titleUpdated2\", \"This is my second updated title\");"
+									"pm.globals.set(\"titleUpdated\", \"This is my first updated title\");",
+									"pm.globals.set(\"reviewUpdated\", \"This is my second updated review\");",
+									"pm.globals.set(\"orderUpdated\", \"This is my third updated order\");",
+									"pm.globals.set(\"deliveryUpdated\", \"This is my fourth updated delivery\");"
 								],
 								"type": "text/javascript"
 							}
@@ -86,7 +88,7 @@
 								"id": "29ea9cf0-c51d-4264-aa96-65f555cc3eed",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"var bookId = jsonData.id;",
+									"var bookId = jsonData.bookId;",
 									"pm.globals.set(\"bookId\", bookId);"
 								],
 								"type": "text/javascript"
@@ -172,7 +174,7 @@
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"var title = jsonData.title;",
-									"var expected = pm.globals.get(\"titleUpdated1\");",
+									"var expected = pm.globals.get(\"titleUpdated\");",
 									"",
 									"pm.expect(title).to.equal(expected);"
 								],
@@ -195,79 +197,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"id\": {{bookId}},\r\n  \"title\": \"{{titleUpdated1}}\",\r\n  \"synopsis\": \"This is the register of my second book\",\r\n  \"isbn\": \"12348\",\r\n  \"genre\": \"Action\",\r\n  \"value\": 63.36\r\n}"
-						},
-						"url": {
-							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books/{{bookId}}",
-							"protocol": "https",
-							"host": [
-								"{{ADDRESS}}"
-							],
-							"port": "{{PORT}}",
-							"path": [
-								"api",
-								"v1",
-								"books",
-								"{{bookId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Apagar livro #1",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books/1",
-							"protocol": "https",
-							"host": [
-								"{{ADDRESS}}"
-							],
-							"port": "{{PORT}}",
-							"path": [
-								"api",
-								"v1",
-								"books",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Apagar livro #2",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
+							"raw": "{\r\n  \"bookId\": {{bookId}},\r\n  \"title\": \"{{titleUpdated}}\",\r\n  \"synopsis\": \"This is the register of my second book\",\r\n  \"isbn\": \"12348\",\r\n  \"genre\": \"Action\",\r\n  \"value\": 63.36\r\n}"
 						},
 						"url": {
 							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books/{{bookId}}",
@@ -325,7 +255,7 @@
 								"id": "29ea9cf0-c51d-4264-aa96-65f555cc3eed",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"var reviewId = jsonData.id;",
+									"var reviewId = jsonData.reviewId;",
 									"pm.globals.set(\"reviewId\", reviewId);"
 								],
 								"type": "text/javascript"
@@ -344,7 +274,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"review\": \"My first review\",\r\n  \r\n  \"bookItems\": [\r\n    {\r\n      \"bookId\": 1\r\n    }\r\n  ]\r\n}"
+							"raw": "{\r\n  \"review\": \"My first review\",\r\n  \"bookItem\": \r\n    {\r\n      \"bookId\": {{bookId}}\r\n    }\r\n}"
 						},
 						"url": {
 							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/reviews",
@@ -376,8 +306,11 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -388,7 +321,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"title\": \"My second book\",\r\n  \"synopsis\": \"This is the register of my second book\",\r\n  \"isbn\": \"12345678\",\r\n  \"genre\": \"Horror\",\r\n  \"value\": 43.36\r\n}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/reviews/{{reviewId}}",
@@ -416,10 +349,10 @@
 								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"var title = jsonData.title;",
-									"var expected = pm.globals.get(\"titleUpdated1\");",
+									"var review = jsonData.review;",
+									"var expected = pm.globals.get(\"reviewUpdated\");",
 									"",
-									"pm.expect(title).to.equal(expected);"
+									"pm.expect(review).to.equal(expected);"
 								],
 								"type": "text/javascript"
 							}
@@ -440,7 +373,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 2,\n    \"bookID\": 1,\n    \"review\": \"Test\"\n}"
+							"raw": "{\n    \"reviewId\": {{reviewId}},\n    \"bookItem\": {\n        \"bookId\": 12,\n        \"isbn\": \"12345678\",\n        \"title\": \"My second book\",\n        \"genre\": \"Horror\",\n        \"synopsis\": \"This is the register of my second book\",\n        \"value\": 43.36\n    },\n    \"review\": \"{{reviewUpdated}}\"\n}"
 						},
 						"url": {
 							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/reviews/{{reviewId}}",
@@ -458,62 +391,11 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Apagar resenha #1",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"var title = jsonData.title;",
-									"var expected = pm.globals.get(\"titleUpdated1\");",
-									"",
-									"pm.expect(title).to.equal(expected);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n   \"id\": {{bookId}},\r\n  \"title\": \"{{titleUpdated1}}\",\r\n  \"synopsis\": \"This is the register of my second book\",\r\n  \"isbn\": \"12348\",\r\n  \"genre\": \"Action\",\r\n  \"value\": 63.36\r\n}"
-						},
-						"url": {
-							"raw": "https://{{ADDRESS}}:{{PORT}}/api/reviews/{{reviewId}}",
-							"protocol": "https",
-							"host": [
-								"{{ADDRESS}}"
-							],
-							"port": "{{PORT}}",
-							"path": [
-								"api",
-								"reviews",
-								"{{reviewId}}"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
 		{
-			"name": "Carrinho",
+			"name": "Carrinhos",
 			"item": [
 				{
 					"name": "Recuperar todos carrinhos",
@@ -643,6 +525,228 @@
 								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
+									"var _status = jsonData.status;",
+									"var expected = \"closed\";",
+									"",
+									"pm.expect(_status).to.equal(expected);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cartId\": {{cartId}},\n    \"status\": \"closed\",\n    \"bookItems\": [\n        {\n            \"bookId\": 2,\n            \"isbn\": \"1234561\",\n            \"title\": \"This is the title of book #1\",\n            \"genre\": \"female\",\n            \"synopsis\": \"This book is the book #1\",\n            \"value\": 10\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/carts/{{cartId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pedidos",
+			"item": [
+				{
+					"name": "Recuperar todos pedidos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/orders",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar pedido 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29ea9cf0-c51d-4264-aa96-65f555cc3eed",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var orderId = jsonData.orderId;",
+									"pm.globals.set(\"orderId1\", orderId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cartItem\": \r\n\t{\r\n\t  \"cartId\": {{cartId}}\r\n\t},\r\n\t\"payment\": 12.22\r\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/orders",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar pedido 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29ea9cf0-c51d-4264-aa96-65f555cc3eed",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var orderId = jsonData.orderId;",
+									"pm.globals.set(\"orderId2\", orderId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"cartItem\": \r\n\t{\r\n\t  \"cartId\": {{cartId}}\r\n\t},\r\n\t\"payment\": 12.22\r\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/orders",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar pedido específico",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29ea9cf0-c51d-4264-aa96-65f555cc3eed",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/orders/{{orderId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"{{orderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar pedido 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
 									"var title = jsonData.title;",
 									"var expected = pm.globals.get(\"titleUpdated1\");",
 									"",
@@ -667,10 +771,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 2,\n    \"bookID\": 1,\n    \"review\": \"Test\"\n}"
+							"raw": "{\n    \"orderId\": {{orderId1}},\n    \"cartItem\": {\n        \"cartId\": 2,\n        \"status\": \"open\",\n        \"bookItems\": null\n    },\n    \"payment\": 14.22,\n    \"status\": \"closed\"\n}"
 						},
 						"url": {
-							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/reviews/{{reviewId}}",
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/orders/{{orderId1}}",
 							"protocol": "https",
 							"host": [
 								"{{ADDRESS}}"
@@ -679,15 +783,15 @@
 							"path": [
 								"api",
 								"v1",
-								"reviews",
-								"{{reviewId}}"
+								"orders",
+								"{{orderId1}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Apagar carrinho",
+					"name": "Atualizar pedido 2",
 					"event": [
 						{
 							"listen": "test",
@@ -708,6 +812,235 @@
 						"auth": {
 							"type": "noauth"
 						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderId\": {{orderId2}},\n    \"cartItem\": {\n        \"cartId\": 2,\n        \"status\": \"open\",\n        \"bookItems\": null\n    },\n    \"payment\": 14.22,\n    \"status\": \"closed\"\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/orders/{{orderId2}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"{{orderId2}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Entregas",
+			"item": [
+				{
+					"name": "Recuperar todas entregas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/deliveries",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"deliveries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Criar entrega",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29ea9cf0-c51d-4264-aa96-65f555cc3eed",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var deliveryId = jsonData.deliveryId;",
+									"pm.globals.set(\"deliveryId\", deliveryId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"orderItems\": [\r\n    {\r\n      \"orderId\": {{orderId1}}\r\n    },\r\n    {\r\n      \"orderId\": {{orderId2}}\r\n    }\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/deliveries",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"deliveries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recuperar entrega específica",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29ea9cf0-c51d-4264-aa96-65f555cc3eed",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/deliveries/{{deliveryId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"deliveries",
+								"{{deliveryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar entrega",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var title = jsonData.title;",
+									"var expected = pm.globals.get(\"titleUpdated1\");",
+									"",
+									"pm.expect(title).to.equal(expected);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deliveryId\": {{deliveryId}},\n    \"status\": \"delivered\",\n    \"orderItems\": [\n        {\n            \"orderId\": 1,\n            \"cartItem\": null,\n            \"payment\": 12.22,\n            \"status\": \"inprogress\"\n        },\n        {\n            \"orderId\": 2,\n            \"cartItem\": null,\n            \"payment\": 12.22,\n            \"status\": \"inprogress\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/deliveries/{{deliveryId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"deliveries",
+								"{{deliveryId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deletar Registros",
+			"item": [
+				{
+					"name": "Apagar entrega",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -719,10 +1052,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"id\": {{bookId}},\r\n  \"title\": \"{{titleUpdated1}}\",\r\n  \"synopsis\": \"This is the register of my second book\",\r\n  \"isbn\": \"12348\",\r\n  \"genre\": \"Action\",\r\n  \"value\": 63.36\r\n}"
+							"raw": ""
 						},
 						"url": {
-							"raw": "https://{{ADDRESS}}:{{PORT}}/api/reviews/{{reviewId}}",
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/deliveries/{{deliveryId}}",
 							"protocol": "https",
 							"host": [
 								"{{ADDRESS}}"
@@ -730,8 +1063,237 @@
 							"port": "{{PORT}}",
 							"path": [
 								"api",
+								"v1",
+								"deliveries",
+								"{{deliveryId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar pedido 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/orders/{{orderId1}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"{{orderId1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar pedido 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/orders/{{orderId2}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"{{orderId2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar carrinho",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/carts/{{cartId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"{{cartId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar resenha",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37a4f96f-a1f9-4848-991e-369b8d9f7054",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/reviews/{{reviewId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
 								"reviews",
 								"{{reviewId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Apagar livro",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books/{{bookId}}",
+							"protocol": "https",
+							"host": [
+								"{{ADDRESS}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"api",
+								"v1",
+								"books",
+								"{{bookId}}"
 							]
 						}
 					},
