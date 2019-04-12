@@ -39,12 +39,7 @@ namespace VBSApi.Utils
                     Pagination = pagination                    
                 };
 
-                books.Add(book);
-            }
-
-            foreach (var book in books)
-            {
-                context.BookItems.Add(book);               
+                context.BookItems.Add(book);
             }
 
             context.SaveChanges();
