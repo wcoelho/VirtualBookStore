@@ -490,7 +490,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"bookItems\": [\r\n    {\r\n      \"bookId\": 1\r\n    },\r\n    {\r\n      \"bookId\": 2\r\n    }\r\n  ]\r\n}"
+							"raw": "{\r\n  \"userId\": 1,\r\n  \"userName\": \"user1\",\r\n  \"password\": \"userpwd1\",\r\n  \"bookItems\": [\r\n    {\r\n      \"bookId\": 1\r\n    },\r\n    {\r\n      \"bookId\": 2\r\n    }\r\n  ]\r\n}"
 						},
 						"url": {
 							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/carts",
@@ -579,7 +579,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books/1/carts",
+							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/books/2/carts",
 							"protocol": "https",
 							"host": [
 								"{{ADDRESS}}"
@@ -589,7 +589,7 @@
 								"api",
 								"v1",
 								"books",
-								"1",
+								"2",
 								"carts"
 							]
 						}
@@ -629,7 +629,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cartId\": {{cartId}},\n    \"status\": \"closed\",\n    \"bookItems\": [\n        {\n            \"bookId\": 2,\n            \"isbn\": \"1234561\",\n            \"title\": \"This is the title of book #1\",\n            \"genre\": \"female\",\n            \"synopsis\": \"This book is the book #1\",\n            \"value\": 10\n        }\n    ]\n}"
+							"raw": "{\n    \"cartId\": {{cartId}},\n    \"status\": \"closed\",\n    \"userId\": 1,\n    \"userName\": \"user1\",\n    \"password\": \"userpwd1\",\n    \"bookItems\": [\n        {\n            \"bookId\": 2,\n            \"isbn\": \"1234561\",\n            \"title\": \"This is the title of book #1\",\n            \"genre\": \"female\",\n            \"synopsis\": \"This book is the book #1\",\n            \"value\": 10\n        }\n    ]\n}"
 						},
 						"url": {
 							"raw": "https://{{ADDRESS}}:{{PORT}}/api/v1/carts/{{cartId}}",
