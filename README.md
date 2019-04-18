@@ -1,5 +1,9 @@
 # VirtualBookStoreApi
-API para a gestão de uma livraria virtual.  
+API para a gestão de uma livraria virtual. 
+
+**Autores**  
+* Walter Coelho
+* Dalmo Melo
 
 ## Operações
 
