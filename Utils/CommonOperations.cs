@@ -1,15 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using VBSApi.Models;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Text;
+using System.Net.Http.Formatting;
+using System.IO;
 
 namespace VBSApi.Utils
 {
     public class CommonOperations
     {
-
         /*Populates book items*/
         public static void AddBooks(VBSContext context)
         {
@@ -82,5 +89,47 @@ namespace VBSApi.Utils
 
             return orders;
         }
-    }
+
+        public static bool ValidateUser(long userId, string userName, string password)
+        {
+
+       
+            var request = (HttpWebRequest)WebRequest.Create("https://localhost:5001/api/v1/Authentication");
+
+            // Make server accept request without certified
+            ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+
+            string stringData = 
+            "{\"Id\":" + userId + ",\"UserName\": \""+ userName + "\",\"Password\": \"" + password + "\"}";
+
+            var resultJson = JsonConvert.SerializeObject(stringData);
+
+            var data = Encoding.ASCII.GetBytes(stringData); // or UTF8
+
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.ContentLength = data.Length;
+
+            var newStream = request.GetRequestStream();
+            newStream.Write(data, 0, data.Length);
+            newStream.Close();
+
+            string result = "";  
+
+            // Get response  
+            using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)  
+            {  
+                // Get the response stream  
+                StreamReader reader = new StreamReader(response.GetResponseStream());  
+    
+                // Read the whole contents and return as a string  
+                result = reader.ReadToEnd();  
+            }  
+
+            var details = JObject.Parse(result);
+            return (bool) details.GetValue("result");
+        }
+    
+    }    
+    
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VBSApi.Models;
+using VBSApi.Utils;
 
 namespace VBSApi.Controllers
 {
@@ -53,6 +54,17 @@ namespace VBSApi.Controllers
             if (cartItem == null)
             {
                 return NotFound();
+            }
+
+            // Validate user
+            var userId = cartItem.UserId;
+            var userName = cartItem.UserName;
+            var password = cartItem.Password;
+
+            // If validation fails, return bad request
+            if(!CommonOperations.ValidateUser(userId, userName, password))
+            {
+                return BadRequest();
             }
 
             order.CartItem = cartItem;

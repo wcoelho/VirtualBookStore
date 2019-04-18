@@ -53,6 +53,17 @@ namespace VBSApi.Controllers
                 throw new System.ArgumentNullException(nameof(cart.BookItems));
             }
 
+            // Validate user
+            var userId = cart.UserId;
+            var userName = cart.UserName;
+            var password = cart.Password;
+
+            // If validation fails, return bad request
+            if(!CommonOperations.ValidateUser(userId, userName, password))
+            {
+                return BadRequest();
+            }
+
             // Retrieving all books from cart            
             ICollection<BookItem> books = await CommonOperations.ExtractBooks(cart, _context);
 
@@ -72,6 +83,17 @@ namespace VBSApi.Controllers
         public async Task<ActionResult<CartItem>> PutCartItem(long id, CartItem cart)
         {
             if (id != cart.CartId)
+            {
+                return BadRequest();
+            }
+
+            // Validate user
+            var userId = cart.UserId;
+            var userName = cart.UserName;
+            var password = cart.Password;
+
+            // If validation fails, return bad request
+            if(!CommonOperations.ValidateUser(userId, userName, password))
             {
                 return BadRequest();
             }

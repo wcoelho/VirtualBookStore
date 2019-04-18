@@ -23,7 +23,7 @@ API para a gestão de uma livraria virtual.
 * Documentação em Swagger.  
 => Veja tópico "Documentação"
 * Protocolo HTTPS/SSL e APIs versionadas.  
-=> URL Base = https://localhost:5001/api/v1
+=> URL Base = https://localhost:5002/api/v1
 * Paginação para coleções com grandes volumes de dados.  
 => Adicionados campos para controle de paginação para a entidade "book"
 * Códigos de retorno adequados para cada método.  
@@ -81,11 +81,19 @@ _Método: DELETE_
 * /carts/{cartId} = Apaga registro de um carrinho de compras.
 * /orders/{orderId} = Apaga registro de um pedido de compra.
 * /deliveries/{deliveryId} = Apaga registro de controle de entrega de pedido.  
+  
+## Validação de Usuário  
+Durante a criação ou atualização de carrinho de compras e criação de pedido, os dados do usuário são validados através de chamada ao endpoint abaixo, consumindo a API "Authentication API":  
+  
+https://localhost:5001/api/v1/Authentication  
+  
+Código: [AuthenticationApi](https://github.com/wcoelho/AuthenticationApi)  
+  
 
 ## Testes  
 Importar a Postman Collection postman_collection.json e variáveis de ambiente postman_environment.json.
 
 ## Documentação  
 Estando a aplicação em execução, acesse a seguinte URI:  
-https://localhost:5001/swagger
+https://localhost:5002/swagger
 
